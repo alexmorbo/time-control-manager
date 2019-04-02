@@ -2,6 +2,7 @@
 
 namespace TimeControlManager;
 
+use TimeControlManager\Entities\Department;
 use TimeControlManager\Entities\User;
 
 class TimeControl
@@ -28,6 +29,19 @@ class TimeControl
 
         while ($row = $st->fetch()) {
             $user = new User($row);
+
+            d($user);
+            dd(__METHOD__);
+            die;
+        }
+    }
+
+    public function listDepartments()
+    {
+        $st = $this->db->getDB()->query('select * from departments');
+
+        while ($row = $st->fetch()) {
+            $user = new Department($row);
 
             d($user);
             dd(__METHOD__);

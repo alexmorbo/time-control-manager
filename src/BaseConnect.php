@@ -2,6 +2,8 @@
 
 namespace TimeControlManager;
 
+use PDO as PDOAlias;
+
 class BaseConnect
 {
     /**
@@ -30,7 +32,7 @@ class BaseConnect
     private $password;
 
     /**
-     * @var \PDO
+     * @var PDOAlias
      */
     private $connect;
 
@@ -52,13 +54,13 @@ class BaseConnect
             $this->host, $this->port, $this->database
         );
 
-        $this->connect = new \PDO($dsn, $this->username, $this->password, [
-            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
-            \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+        $this->connect = new PDOAlias($dsn, $this->username, $this->password, [
+            PDOAlias::ATTR_ERRMODE => PDOAlias::ERRMODE_EXCEPTION,
+            PDOAlias::ATTR_DEFAULT_FETCH_MODE => PDOAlias::FETCH_ASSOC,
         ]);
     }
 
-    public function getDB(): \PDO
+    public function getDB(): PDOAlias
     {
         return $this->connect;
     }

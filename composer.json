@@ -1,5 +1,6 @@
 {
     "name": "alexmorbo/time-control-manager",
+    "description": "Time Control Management",
     "type": "library",
     "authors": [
         {
@@ -8,6 +9,9 @@
         }
     ],
     "require": {
+        "ext-pdo": "*"
+    },
+    "require-dev": {
         "larapack/dd": "^1.1"
     },
     "autoload": {
