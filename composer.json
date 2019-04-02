@@ -1,0 +1,18 @@
+{
+    "name": "alexmorbo/time-control-manager",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alex Morbo",
+            "email": "alex@morbo.ru"
+        }
+    ],
+    "require": {
+        "larapack/dd": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "TimeControlManager\\": "src/"
+        }
+    }
+}
