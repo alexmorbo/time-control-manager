@@ -224,6 +224,14 @@ class User extends BaseEntity
         return $this;
     }
 
+    /**
+     * @return string
+     */
+    public function getFullName(): string
+    {
+        return $this->fullName;
+    }
+
     protected function updateFullName()
     {
         $this->fullName = trim(implode(' ', [
