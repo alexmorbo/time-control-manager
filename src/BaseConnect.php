@@ -58,6 +58,7 @@ class BaseConnect
             PDOAlias::ATTR_ERRMODE => PDOAlias::ERRMODE_EXCEPTION,
             PDOAlias::ATTR_DEFAULT_FETCH_MODE => PDOAlias::FETCH_ASSOC,
         ]);
+        $this->connect->beginTransaction();
     }
 
     public function getDB(): PDOAlias

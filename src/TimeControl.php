@@ -2,15 +2,21 @@
 
 namespace TimeControlManager;
 
-use TimeControlManager\Entities\Department;
-use TimeControlManager\Entities\User;
-
+/**
+ * Class TimeControl
+ * @package TimeControlManager
+ */
 class TimeControl
 {
     /**
      * @var BaseConnect
      */
     private $db;
+
+    /**
+     * @var self
+     */
+    private static $tcInstance = null;
 
     public function __construct(array $config)
     {
@@ -21,31 +27,27 @@ class TimeControl
             $config['db']['port'],
             $config['db']['base']
         );
+
+        self::$tcInstance = $this;
     }
 
-    public function listUsers()
+    /**
+     * @return TimeControl
+     */
+    public static function getInstance(): self
     {
-        $st = $this->db->getDB()->query('select * from users where UID = 9');
-
-        while ($row = $st->fetch()) {
-            $user = new User($row);
-
-            d($user);
-            dd(__METHOD__);
-            die;
+        if (self::$tcInstance === null) {
+            throw new \RuntimeException('You need to initiate library before use static calls');
         }
+
+        return self::$tcInstance;
     }
 
-    public function listDepartments()
+    /**
+     * @return \PDO
+     */
+    public function getDb(): \PDO
     {
-        $st = $this->db->getDB()->query('select * from departments');
-
-        while ($row = $st->fetch()) {
-            $user = new Department($row);
-
-            d($user);
-            dd(__METHOD__);
-            die;
-        }
+        return $this->db->getDB();
     }
 }
