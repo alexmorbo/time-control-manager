@@ -361,4 +361,12 @@ class Directory extends BaseEntity
 
         return $this;
     }
+
+    /**
+     * @return DirectoryData[]|null
+     */
+    public function getData(): array
+    {
+        return DirectoryData::find($this->id, 'directoryId');
+    }
 }

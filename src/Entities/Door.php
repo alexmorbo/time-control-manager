@@ -6,6 +6,9 @@ use TimeControlManager\Exceptions\UnprocessableEntityException;
 
 class Door extends BaseEntity
 {
+    /**
+     * Справочник проходных
+     */
     const TABLE_NAME = 'doors';
 
     /**
