@@ -4,6 +4,7 @@
     "keywords": ["time-control","access control"],
     "homepage": "https://github.com/alexmorbo/time-control-manager",
     "type": "library",
+    "license": "MIT",
     "authors": [
         {
             "name": "Alex Morbo",
