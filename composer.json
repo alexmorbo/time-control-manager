@@ -15,7 +15,7 @@
     ],
     "require": {
         "ext-pdo": "*",
-        "ext-pdo-interbase": "*",
+        "ext-pdo_firebird": "*",
         "php": ">=7.2.0"
     },
     "autoload": {
