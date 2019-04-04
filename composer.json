@@ -1,6 +1,8 @@
 {
     "name": "alexmorbo/time-control-manager",
-    "description": "Time Control Management",
+    "description": "Time Control Management Library",
+    "keywords": ["time-control","access control"],
+    "homepage": "https://github.com/alexmorbo/time-control-manager",
     "type": "library",
     "authors": [
         {
@@ -9,10 +11,8 @@
         }
     ],
     "require": {
-        "ext-pdo": "*"
-    },
-    "require-dev": {
-        "larapack/dd": "^1.1"
+        "ext-pdo": "*",
+        "php": ">=7.2.0"
     },
     "autoload": {
         "psr-4": {
