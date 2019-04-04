@@ -15,6 +15,7 @@
     ],
     "require": {
         "ext-pdo": "*",
+        "ext-pdo-interbase": "*",
         "php": ">=7.2.0"
     },
     "autoload": {
