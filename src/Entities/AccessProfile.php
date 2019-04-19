@@ -20,21 +20,7 @@ class AccessProfile extends BaseEntity
     const IDENT_TYPE_FINGERPRINT_AND_PASSWORD = 8;
 
 
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор профиля
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Название профиля
-     *
-     * @var string
-     */
-    protected $name;
+    protected $primary = 'id';
 
     /**
      * По умолчанию доступ закрыт
@@ -82,22 +68,6 @@ class AccessProfile extends BaseEntity
     protected $_generators = [
         'id' => 'PROFILES_ACCESS_GEN'
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     /**
      * @param string $name
@@ -207,7 +177,7 @@ class AccessProfile extends BaseEntity
      */
     public function setIsDefault(bool $isDefault): AccessProfile
     {
-        $this->isDefault = $isDefault ? true : false;
+        $this->isDefault = $isDefault;
 
         return $this;
     }

@@ -18,16 +18,9 @@ class TimeControl
      */
     private static $tcInstance = null;
 
-    public function __construct(array $config)
+    public function __construct(BaseConnect $baseConnect)
     {
-        $this->db = new BaseConnect(
-            $config['db']['user'],
-            $config['db']['pass'],
-            $config['db']['host'],
-            $config['db']['port'],
-            $config['db']['base']
-        );
-
+        $this->db = $baseConnect;
         self::$tcInstance = $this;
     }
 

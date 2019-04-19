@@ -11,14 +11,7 @@ class DirectoryData extends BaseEntity
      */
     const TABLE_NAME = 'dictlist_det';
 
-    protected $_primary = 'id';
-
-    /**
-     * Код записи справочника
-     *
-     * @var int
-     */
-    protected $id;
+    protected $primary = 'id';
 
     /**
      * Код справочника
@@ -110,14 +103,6 @@ class DirectoryData extends BaseEntity
     protected $_generators = [
         'id' => 'DICTLIST_DET_GEN',
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * @return int

@@ -31,16 +31,15 @@ composer require alexmorbo/time-control-manager
 
 ```php
 <?php
-$config = [  
-    'db' => [  
-        'user' => 'DB_LOGIN',  
-        'pass' => 'DB_PASS',  
-        'host' => 'DB_HOST',  // ip
-        'port' => 'DB_PORT',  // 3053
-        'base' => 'DB_ALIAS', // timeserver
-    ],  
-];  
-$tc = new \TimeControlManager\TimeControl($config);
+
+$dbUser = ''; // user
+$dbPassword = ''; // pass
+$dbHost = ''; // ip
+$dbPort = ''; // port
+$dbName = ''; // name
+
+$baseConnect = new \TimeControlManager\BaseConnect($dbUser, $dbPassword, $dbHost, $dbPort, $dbName);
+$tc = new \TimeControlManager\TimeControl($baseConnect);
 ```
 
 # Методы

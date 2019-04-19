@@ -11,14 +11,7 @@ class UserDoorEvent extends BaseEntity
      */
     const TABLE_NAME = 'graph_fact_events';
 
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор события
-     *
-     * @var int
-     */
-    protected $id;
+    protected $primary = 'id';
 
     /**
      * Код пользователя
@@ -74,14 +67,6 @@ class UserDoorEvent extends BaseEntity
     protected $_generators = [
         'id' => 'GRAPH_FACT_EVENTS_GEN'
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * @return int

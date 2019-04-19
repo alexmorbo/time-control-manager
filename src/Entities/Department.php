@@ -14,21 +14,7 @@ class Department extends BaseEntity
     /**
      * @var string
      */
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор подразделения
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Название подразделения
-     *
-     * @var string
-     */
-    protected $name;
+    protected $primary = 'id';
 
     /**
      * Идентификатор родительского подраздиления
@@ -72,7 +58,9 @@ class Department extends BaseEntity
      */
     protected $code;
 
-    
+    /**
+     * @var array
+     */
     protected $map = [
         'DEPID' => 'id',
         'DEPNAME' => 'name',
@@ -89,22 +77,6 @@ class Department extends BaseEntity
     ];
 
     /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
      * @param string $name
      * @return Department
      * @throws UnprocessableEntityException
@@ -112,7 +84,7 @@ class Department extends BaseEntity
     public function setName(string $name): Department
     {
         if (mb_strlen($name) > 255) {
-            throw new UnprocessableEntityException('Name too long');
+            throw new UnprocessableEntityException('Name is too long');
         }
 
         $this->name = $name;

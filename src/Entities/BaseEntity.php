@@ -9,6 +9,20 @@ class BaseEntity
     const TABLE_NAME = '';
 
     /**
+     * Идентификатор
+     *
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * Название профиля
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @var array
      */
     protected $_generators = [];
@@ -21,18 +35,38 @@ class BaseEntity
     /**
      * @var string
      */
-    protected $_primary = null;
+    protected $primary = null;
 
     /**
      * @var bool
      */
     protected $_isNew = true;
 
+    /**
+     * BaseEntity constructor.
+     *
+     * @param array $data
+     */
     public function __construct(array $data = [])
     {
         if (count($data)) {
             $this->load($data);
         }
+    }
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     public function __debugInfo() {
@@ -53,7 +87,7 @@ class BaseEntity
         foreach ($data as $col => $val) {
             if (isset($this->map[$col])) {
                 $key = &$this->map[$col];
-                $this->$key = $val;
+                $this->{$key} = $val;
             }
         }
     }
@@ -69,7 +103,7 @@ class BaseEntity
         $map = $class->getMap();
         $col = array_search($fakeColumn, $map);
 
-        if (! $col) {
+        if (!$col) {
             throw new \RuntimeException('Column not found');
         }
 
@@ -79,7 +113,7 @@ class BaseEntity
     public function save(): bool
     {
         $db = TimeControl::getInstance()->getDb();
-        $pk = $this->_primary;
+        $pk = $this->primary;
 
         try {
             if (! $this->_isNew) {
@@ -87,7 +121,7 @@ class BaseEntity
                 $cols = [];
                 $vals = [];
                 foreach ($this->map as $realCol => $col) {
-                    if ($col != $this->_primary) {
+                    if ($col != $this->primary) {
                         $cols[] = $realCol .' = :'.$col;
                         $vals[$col] = $this->$col;
                     }
@@ -150,7 +184,7 @@ class BaseEntity
     public function delete()
     {
         $db = TimeControl::getInstance()->getDb();
-        $pk = $this->_primary;
+        $pk = $this->primary;
 
         try {
             $query = sprintf(
@@ -177,7 +211,7 @@ class BaseEntity
      */
     public function getPk(): string
     {
-        $pk = $this->_primary;
+        $pk = $this->primary;
         return $this->$pk;
     }
 
@@ -206,9 +240,9 @@ class BaseEntity
     /**
      * @param $findParam
      * @param string $column
-     * @return BaseEntity|null
+     * @return static|null
      */
-    public static function findOne($findParam, $column = 'id'): ?BaseEntity
+    public static function findOne($findParam, $column = 'id')
     {
         $st = TimeControl::getInstance()->getDB()->prepare(
             sprintf(
@@ -220,7 +254,9 @@ class BaseEntity
 
         $st->execute([$findParam]);
         $row = $st->fetch();
-
-        return $row ? new static($row) : null;
+        if (empty($row)) {
+            return null;
+        }
+        return new static($row);
     }
 }

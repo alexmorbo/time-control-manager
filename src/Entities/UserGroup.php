@@ -14,21 +14,7 @@ class UserGroup extends BaseEntity
     /**
      * @var string
      */
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор группы
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Название группы
-     *
-     * @var string
-     */
-    protected $name;
+    protected $primary = 'id';
 
     /**
      * Комментарий к группе
@@ -65,22 +51,6 @@ class UserGroup extends BaseEntity
     protected $_generators = [
         'id' => 'USERS_GROUPS_GEN'
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     /**
      * @param string $name

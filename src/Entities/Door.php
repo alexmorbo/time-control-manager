@@ -14,14 +14,7 @@ class Door extends BaseEntity
     /**
      * @var string
      */
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор проходной
-     *
-     * @var int
-     */
-    protected $id;
+    protected $primary = 'id';
 
     /**
      * Использовать проходную для учета рабочего времени
@@ -36,13 +29,6 @@ class Door extends BaseEntity
      * @var int
      */
     protected $defaultAccessDenied;
-
-    /**
-     * Название проходной
-     *
-     * @var string
-     */
-    protected $name;
 
     /**
      * Использовать временной интервал доступа
@@ -117,14 +103,6 @@ class Door extends BaseEntity
     /**
      * @return int
      */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return int
-     */
     public function getUseForWorkHours(): int
     {
         return $this->useForWorkHours;
@@ -168,14 +146,6 @@ class Door extends BaseEntity
         $this->defaultAccessDenied = $defaultAccessDenied;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**

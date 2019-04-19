@@ -11,21 +11,10 @@ class Directory extends BaseEntity
      */
     const TABLE_NAME = 'dictlist';
 
-    protected $_primary = 'id';
-
     /**
-     * Код справочника
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
-     * Текстовый идентификатор справочника
-     *
      * @var string
      */
-    protected $name;
+    protected $primary = 'id';
 
     /**
      * Заголовок справочника
@@ -113,22 +102,6 @@ class Directory extends BaseEntity
     protected $_generators = [
         'id' => 'DICTLIST_GEN',
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     /**
      * @param string $name

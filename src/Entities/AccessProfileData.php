@@ -14,14 +14,8 @@ class AccessProfileData extends BaseEntity
     /**
      * @var string
      */
-    protected $_primary = 'id';
+    protected $primary = 'id';
 
-    /**
-     * Идентификатор
-     *
-     * @var int
-     */
-    protected $id;
 
     /**
      * Код профиля доступа
@@ -68,14 +62,6 @@ class AccessProfileData extends BaseEntity
     protected $_generators = [
         'id' => 'PROFILES_ACCESS_DET_GEN'
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * @return int

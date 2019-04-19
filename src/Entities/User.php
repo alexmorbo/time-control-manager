@@ -17,14 +17,7 @@ class User extends BaseEntity
     /**
      * @var string
      */
-    protected $_primary = 'id';
-
-    /**
-     * Идентификатор пользователя
-     *
-     * @var int
-     */
-    protected $id;
+    protected $primary = 'id';
 
     /**
      * Код группы пользователей
@@ -37,11 +30,6 @@ class User extends BaseEntity
      * @var string
      */
     protected $surname;
-
-    /**
-     * @var string
-     */
-    protected $name;
 
     /**
      * @var string
@@ -83,6 +71,9 @@ class User extends BaseEntity
      */
     protected $deviceId;
 
+    /**
+     * @var array
+     */
     protected $map = [
         'UID' => 'id',
         'USERGROUP' => 'userGroup',
@@ -102,14 +93,6 @@ class User extends BaseEntity
         'id' => 'USERS_GEN',
         'deviceId' => 'USERS_DEVICE_UID_GEN',
     ];
-
-    /**
-     * @return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 
     /**
      * @return int
@@ -172,14 +155,6 @@ class User extends BaseEntity
         $this->updateFullName();
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
     }
 
     /**
