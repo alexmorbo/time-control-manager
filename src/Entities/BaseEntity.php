@@ -127,15 +127,14 @@ class BaseEntity implements BaseEntityInterface
     }
 
     /**
-     * @param $fakeColumn
+     * @param string $fakeColumn
      *
      * @return string
      */
-    public static function getRealColumn($fakeColumn): string
+    public static function getRealColumn(string $fakeColumn): string
     {
         $class = new static();
-        $map = $class->getMap();
-        $col = array_search($fakeColumn, $map);
+        $col = array_search($fakeColumn, $class->getMap());
 
         if (!$col) {
             throw new RuntimeException('Column not found');
@@ -190,13 +189,13 @@ class BaseEntity implements BaseEntityInterface
                 }
             }
 
-            $query = sprintf(self::SQL_INSERT_VALUES, static::TABLE_NAME, implode(', ', $cols), implode(', ', $colsToVals));
+            $query = sprintf($this->getSelectValues(true), static::TABLE_NAME, implode(', ', $cols), implode(', ', $colsToVals));
 
 
             $st = $db->prepare($query);
             $st->execute($vals);
             $db->commit();
-            $this->id = $db->lastInsertId();
+            $res = $st->fetch();
 
             return self::findOne($this->id);
 
@@ -238,8 +237,7 @@ class BaseEntity implements BaseEntityInterface
      */
     public function getPk(): string
     {
-        $pk = $this->primary;
-        return $this->$pk;
+        return $this->primary;
     }
 
     /**
@@ -313,5 +311,18 @@ class BaseEntity implements BaseEntityInterface
         }
 
         return $result;
+    }
+
+    /**
+     * @param bool $withLastInsertId
+     *
+     * @return string
+     */
+    private function getSelectValues(bool $withLastInsertId = false): string
+    {
+        if (!$withLastInsertId) {
+            return self::SQL_INSERT_VALUES;
+        }
+        return self::SQL_INSERT_VALUES . ' returning ' . self::getRealColumn($this->getPk());
     }
 }
