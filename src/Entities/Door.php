@@ -12,11 +12,6 @@ class Door extends BaseEntity
     const TABLE_NAME = 'doors';
 
     /**
-     * @var string
-     */
-    protected $primary = 'id';
-
-    /**
      * Использовать проходную для учета рабочего времени
      *
      * @var int

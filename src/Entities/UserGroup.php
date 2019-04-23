@@ -12,11 +12,6 @@ class UserGroup extends BaseEntity
     const TABLE_NAME = 'users_groups';
 
     /**
-     * @var string
-     */
-    protected $primary = 'id';
-
-    /**
      * Комментарий к группе
      *
      * @var string
@@ -130,7 +125,7 @@ class UserGroup extends BaseEntity
      */
     public function setIsDefault(bool $isDefault): UserGroup
     {
-        $this->isDefault = $isDefault ? 1 : 0;
+        $this->isDefault = $isDefault;
 
         return $this;
     }

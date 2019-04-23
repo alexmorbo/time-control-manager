@@ -12,11 +12,6 @@ class Directory extends BaseEntity
     const TABLE_NAME = 'dictlist';
 
     /**
-     * @var string
-     */
-    protected $primary = 'id';
-
-    /**
      * Заголовок справочника
      *
      * @var string

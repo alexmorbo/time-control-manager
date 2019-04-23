@@ -11,8 +11,6 @@ class DirectoryData extends BaseEntity
      */
     const TABLE_NAME = 'dictlist_det';
 
-    protected $primary = 'id';
-
     /**
      * Код справочника
      *

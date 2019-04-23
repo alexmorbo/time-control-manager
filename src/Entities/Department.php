@@ -12,11 +12,6 @@ class Department extends BaseEntity
     const TABLE_NAME = 'departments';
 
     /**
-     * @var string
-     */
-    protected $primary = 'id';
-
-    /**
      * Идентификатор родительского подраздиления
      *
      * @var int

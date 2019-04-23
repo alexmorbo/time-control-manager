@@ -15,7 +15,8 @@
     ],
     "require": {
         "ext-pdo": "*",
-        "php": ">=7.2.0"
+        "php": ">=7.2.0",
+        "ext-mbstring": "*"
     },
     "autoload": {
         "psr-4": {

@@ -2,6 +2,9 @@
 
 namespace TimeControlManager;
 
+use PDO;
+use RuntimeException;
+
 /**
  * Class TimeControl
  * @package TimeControlManager
@@ -18,6 +21,11 @@ class TimeControl
      */
     private static $tcInstance = null;
 
+    /**
+     * TimeControl constructor.
+     *
+     * @param BaseConnect $baseConnect
+     */
     public function __construct(BaseConnect $baseConnect)
     {
         $this->db = $baseConnect;
@@ -30,16 +38,16 @@ class TimeControl
     public static function getInstance(): self
     {
         if (self::$tcInstance === null) {
-            throw new \RuntimeException('You need to initiate library before use static calls');
+            throw new RuntimeException('You need to initiate library before use static calls');
         }
 
         return self::$tcInstance;
     }
 
     /**
-     * @return \PDO
+     * @return PDO
      */
-    public function getDb(): \PDO
+    public function getDb(): PDO
     {
         return $this->db->getDB();
     }

@@ -11,11 +11,6 @@ class AccessProfileData extends BaseEntity
      */
     const TABLE_NAME = 'PROFILES_ACCESS_DET';
 
-    /**
-     * @var string
-     */
-    protected $primary = 'id';
-
 
     /**
      * Код профиля доступа
