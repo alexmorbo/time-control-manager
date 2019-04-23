@@ -14,7 +14,7 @@ use TimeControlManager\TimeControl;
  * Class BaseEntity
  * @package TimeControlManager\Entities
  */
-class BaseEntity
+class BaseEntity implements BaseEntityInterface
 {
     const TABLE_NAME = '';
     const SQL_UPDATE_WHERE = 'update %s set %s where %s = :_pk';
@@ -144,9 +144,9 @@ class BaseEntity
     }
 
     /**
-     * @return bool
+     * @return BaseEntityInterface
      */
-    public function save(): bool
+    public function save(): BaseEntityInterface
     {
         $db = TimeControl::getInstance()->getDb();
 
@@ -170,7 +170,7 @@ class BaseEntity
                 $st->execute($vals);
                 $this->id = $db->lastInsertId();
 
-                return $st->rowCount() === 1;
+                return self::findOne($this->id);
             }
             // insert
             $cols = [];
@@ -184,7 +184,7 @@ class BaseEntity
                     if ($this->{$col} !== null) {
                         $cols[] = $realCol;
                         $colsToVals[] = ':' . $col;
-                        $vals[$col] = $this->$col;
+                        $vals[$col] = $this->{$col};
                     }
                 }
             }
@@ -194,8 +194,11 @@ class BaseEntity
 
             $st = $db->prepare($query);
             $st->execute($vals);
+            $db->commit();
+            $this->id = $db->lastInsertId();
 
-            return $db->commit() === true;
+            return self::findOne($this->id);
+
         } catch (PDOException $e) {
             if ($db && $db->inTransaction()) {
                 $db->rollback();
