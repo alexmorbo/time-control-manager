@@ -14,7 +14,7 @@ use TimeControlManager\TimeControl;
  * Class BaseEntity
  * @package TimeControlManager\Entities
  */
-class BaseEntity
+class BaseEntity implements BaseEntityInterface
 {
     const TABLE_NAME = '';
     const SQL_UPDATE_WHERE = 'update %s set %s where %s = :_pk';
@@ -22,6 +22,7 @@ class BaseEntity
     const SQL_DELETE_WHERE = 'delete from %s where %s = ?';
     const SQL_SELECT = 'select * from %s';
     const SQL_SELECT_WHERE = 'select * from %s where %s = ?';
+    const KEYS_TO_SANITIZE_RESULT = ['map', '_generators', '_primary', '_isNew'];
 
     /**
      * Идентификатор
@@ -72,7 +73,7 @@ class BaseEntity
     /**
      * @param int $id
      *
-     * @return self
+     * @return static
      */
     public function setId(int $id): self
     {
@@ -144,9 +145,9 @@ class BaseEntity
     }
 
     /**
-     * @return bool
+     * @return BaseEntityInterface
      */
-    public function save(): bool
+    public function save(): BaseEntityInterface
     {
         $db = TimeControl::getInstance()->getDb();
 
@@ -168,8 +169,9 @@ class BaseEntity
 
                 $st = $db->prepare($query);
                 $st->execute($vals);
+                $this->id = $db->lastInsertId();
 
-                return $st->rowCount() === 1;
+                return self::findOne($this->id);
             }
             // insert
             $cols = [];
@@ -183,7 +185,7 @@ class BaseEntity
                     if ($this->{$col} !== null) {
                         $cols[] = $realCol;
                         $colsToVals[] = ':' . $col;
-                        $vals[$col] = $this->$col;
+                        $vals[$col] = $this->{$col};
                     }
                 }
             }
@@ -193,8 +195,11 @@ class BaseEntity
 
             $st = $db->prepare($query);
             $st->execute($vals);
+            $db->commit();
+            $this->id = $db->lastInsertId();
 
-            return $db->commit() === true;
+            return self::findOne($this->id);
+
         } catch (PDOException $e) {
             if ($db && $db->inTransaction()) {
                 $db->rollback();
@@ -295,15 +300,17 @@ class BaseEntity
 
     /**
      * @param array $result
+     * @param array $keys
      *
      * @return array
      */
-    private function sanitizeResult(array $result): array
+    private function sanitizeResult(array $result, array $keys = self::KEYS_TO_SANITIZE_RESULT): array
     {
-        unset($result['map']);
-        unset($result['_generators']);
-        unset($result['_primary']);
-        unset($result['_isNew']);
+        foreach ($keys as $key) {
+            if (isset($result[$key])) {
+                unset($result[$key]);
+            }
+        }
 
         return $result;
     }
