@@ -2,8 +2,13 @@
 
 namespace TimeControlManager\Entities;
 
+use function mb_strlen;
 use TimeControlManager\Exceptions\UnprocessableEntityException;
 
+/**
+ * Class AccessProfile
+ * @package TimeControlManager\Entities
+ */
 class AccessProfile extends BaseEntity
 {
     const TABLE_NAME = 'profiles_access';
@@ -18,9 +23,6 @@ class AccessProfile extends BaseEntity
     const IDENT_TYPE_CARD_AND_FINGERPRINT = 6;
     const IDENT_TYPE_CARD_AND_PASSWORD = 7;
     const IDENT_TYPE_FINGERPRINT_AND_PASSWORD = 8;
-
-
-    protected $primary = 'id';
 
     /**
      * По умолчанию доступ закрыт
@@ -74,7 +76,7 @@ class AccessProfile extends BaseEntity
      * @return AccessProfile
      * @throws UnprocessableEntityException
      */
-    public function setName(string $name): AccessProfile
+    public function setName(string $name): self
     {
         if (mb_strlen($name) > 128) {
             throw new UnprocessableEntityException('Name too long');
@@ -90,7 +92,7 @@ class AccessProfile extends BaseEntity
      */
     public function getDefaultClose(): bool
     {
-        return $this->defaultClose ? true : false;
+        return isset($this->defaultClose);
     }
 
     /**
@@ -99,7 +101,7 @@ class AccessProfile extends BaseEntity
      */
     public function setDefaultClose(bool $defaultClose): AccessProfile
     {
-        $this->defaultClose = $defaultClose ? true : false;
+        $this->defaultClose = $defaultClose;
 
         return $this;
     }
@@ -168,7 +170,7 @@ class AccessProfile extends BaseEntity
      */
     public function getIsDefault(): bool
     {
-        return $this->isDefault ? true : false;
+        return isset($this->isDefault);
     }
 
     /**

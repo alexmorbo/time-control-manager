@@ -2,7 +2,13 @@
 
 namespace TimeControlManager\Exceptions;
 
-class UnprocessableEntityException extends \Exception
+use Exception;
+
+/**
+ * Class UnprocessableEntityException
+ * @package TimeControlManager\Exceptions
+ */
+class UnprocessableEntityException extends Exception
 {
 
 }

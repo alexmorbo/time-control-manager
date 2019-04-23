@@ -2,8 +2,14 @@
 
 namespace TimeControlManager\Entities;
 
+use function mb_strlen;
 use TimeControlManager\Exceptions\UnprocessableEntityException;
+use function trim;
 
+/**
+ * Class User
+ * @package TimeControlManager\Entities
+ */
 class User extends BaseEntity
 {
     /**
@@ -13,11 +19,6 @@ class User extends BaseEntity
 
     const GENDER_MALE = 1;
     const GENDER_FEMALE = 2;
-
-    /**
-     * @var string
-     */
-    protected $primary = 'id';
 
     /**
      * Код группы пользователей
@@ -72,6 +73,21 @@ class User extends BaseEntity
     protected $deviceId;
 
     /**
+     * @var bool
+     */
+    protected $isLocked = false;
+
+    /**
+     * @var string|null
+     */
+    protected $lockDate;
+
+    /**
+     * @var bool
+     */
+    protected $onDevices = false;
+
+    /**
      * @var array
      */
     protected $map = [
@@ -87,12 +103,39 @@ class User extends BaseEntity
         'DOLJ' => 'positionId',
         'SHEDCARDKEY' => 'accessCardNumber',
         'DEVICE_UID' => 'deviceId',
+        'ISLOCKED' => 'isLocked',
+        'LOCKDATE' => 'lockDate',
+        'BT_USE' => 'onDevices',
     ];
 
     protected $_generators = [
         'id' => 'USERS_GEN',
         'deviceId' => 'USERS_DEVICE_UID_GEN',
     ];
+
+    /**
+     * @return bool
+     */
+    public function isLocked(): bool
+    {
+        return (bool) $this->isLocked;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLockDate(): ?string
+    {
+        return $this->lockDate;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOnDevices(): bool
+    {
+        return (bool) $this->onDevices;
+    }
 
     /**
      * @return int
@@ -207,13 +250,18 @@ class User extends BaseEntity
         return $this->fullName;
     }
 
-    protected function updateFullName()
+    /**
+     * @return User
+     */
+    protected function updateFullName(): self
     {
         $this->fullName = trim(implode(' ', [
             $this->surname,
             $this->name,
             $this->patronymic
         ]));
+
+        return $this;
     }
 
     /**
@@ -225,16 +273,19 @@ class User extends BaseEntity
     }
 
     /**
-     * @param string $gender
+     * @param int $gender
+     *
      * @return User
      * @throws UnprocessableEntityException
      */
-    public function setGender(string $gender): User
+    public function setGender(int $gender): User
     {
         switch ($gender) {
             case static::GENDER_MALE:
+                $this->gender = static::GENDER_MALE;
+                break;
             case static::GENDER_FEMALE:
-                $this->gender = (int) $gender;
+                $this->gender = static::GENDER_FEMALE;
                 break;
             default:
                 throw new UnprocessableEntityException('Gender invalid');
