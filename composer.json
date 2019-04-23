@@ -5,7 +5,7 @@
     "homepage": "https://github.com/alexmorbo/time-control-manager",
     "type": "library",
     "license": "MIT",
-    "version": "0.7",
+    "version": "0.8",
     "minimum-stability": "dev",
     "authors": [
         {
