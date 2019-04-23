@@ -72,7 +72,7 @@ class BaseEntity
     /**
      * @param int $id
      *
-     * @return self
+     * @return static
      */
     public function setId(int $id): self
     {
