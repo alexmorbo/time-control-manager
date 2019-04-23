@@ -22,6 +22,7 @@ class BaseEntity implements BaseEntityInterface
     const SQL_DELETE_WHERE = 'delete from %s where %s = ?';
     const SQL_SELECT = 'select * from %s';
     const SQL_SELECT_WHERE = 'select * from %s where %s = ?';
+    const KEYS_TO_SANITIZE_RESULT = ['map', '_generators', '_primary', '_isNew'];
 
     /**
      * Идентификатор
@@ -303,7 +304,7 @@ class BaseEntity implements BaseEntityInterface
      *
      * @return array
      */
-    private function sanitizeResult(array $result, array $keys = ['map', '_generators', '_primary', '_isNew']): array
+    private function sanitizeResult(array $result, array $keys = self::KEYS_TO_SANITIZE_RESULT): array
     {
         foreach ($keys as $key) {
             if (isset($result[$key])) {
