@@ -2,6 +2,8 @@
 
 namespace TimeControlManager\Entities;
 
+use DateTime;
+use Exception;
 use function mb_strlen;
 use TimeControlManager\Exceptions\UnprocessableEntityException;
 use function trim;
@@ -424,5 +426,16 @@ class User extends BaseEntity
     public function getDeviceId(): int
     {
         return $this->deviceId;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     */
+    public function lockUser(): bool
+    {
+        $this->isLocked = true;
+        $this->lockDate = new DateTime();
+        return $this->save();
     }
 }
