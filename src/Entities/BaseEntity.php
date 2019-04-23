@@ -168,6 +168,7 @@ class BaseEntity
 
                 $st = $db->prepare($query);
                 $st->execute($vals);
+                $this->id = $db->lastInsertId();
 
                 return $st->rowCount() === 1;
             }
