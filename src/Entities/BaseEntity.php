@@ -168,8 +168,8 @@ class BaseEntity implements BaseEntityInterface
 
                 $st = $db->prepare($query);
                 $st->execute($vals);
-                $this->id = $db->lastInsertId();
-
+                $res = $st->fetch();
+                $this->id = $res[$this->getPk()];
                 return self::findOne($this->id);
             }
             // insert
@@ -196,7 +196,7 @@ class BaseEntity implements BaseEntityInterface
             $st->execute($vals);
             $db->commit();
             $res = $st->fetch();
-
+            $this->id = $res[$this->getPk()];
             return self::findOne($this->id);
 
         } catch (PDOException $e) {
