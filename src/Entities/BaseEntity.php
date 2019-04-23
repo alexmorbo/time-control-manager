@@ -299,15 +299,17 @@ class BaseEntity implements BaseEntityInterface
 
     /**
      * @param array $result
+     * @param array $keys
      *
      * @return array
      */
-    private function sanitizeResult(array $result): array
+    private function sanitizeResult(array $result, array $keys = ['map', '_generators', '_primary', '_isNew']): array
     {
-        unset($result['map']);
-        unset($result['_generators']);
-        unset($result['_primary']);
-        unset($result['_isNew']);
+        foreach ($keys as $key) {
+            if (isset($result[$key])) {
+                unset($result[$key]);
+            }
+        }
 
         return $result;
     }
